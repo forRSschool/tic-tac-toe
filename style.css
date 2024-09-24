@@ -1,0 +1,99 @@
+/* 1. Basic styles */
+/* 2. Header styles */
+/* 3. Main styles */
+/* 4. Footer styles */
+
+/* Basic styles start */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #ffffff;
+}
+
+body {
+  background-color: #252A34;
+}
+/* Basic styles end */
+
+/* Header styles start */
+.header {
+  text-align: center;
+  margin: 50px;
+}
+
+h1 {
+  color: #ffffff;
+}
+/* Header styles end */
+
+/* Main styles start */
+.main {
+  text-align: center;
+}
+
+.turn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.turn-boxes {
+  display: flex;
+  margin: 15px;
+}
+
+.turn-box {
+  padding: 1em 2em;
+  border: 1px solid #000;
+}
+
+.active-box {
+  background-color: crimson;
+}
+
+.content {
+    display: flex;
+    margin: 100px 50px 50px 50px;
+}
+
+.game-area {
+    width: 12.3rem;
+    border: 1px solid #000;
+    margin: 0 auto;
+    font-size: 0;
+}
+
+.box {
+    width: 4rem;
+    height: 4rem;
+    line-height: 4rem;
+    text-align: center;
+    display: inline-block;
+    font-size: 2rem;
+    border: 1px solid #000;
+    cursor: pointer;
+    vertical-align: middle;
+    transition: background .1s;
+}
+
+.box:hover {
+    background-color: crimson;
+}
+
+.play-again {
+  background-color: crimson;
+  height: 3rem;
+  width: 5rem;
+  margin-top: 10px;
+}
+
+.play-again:hover {
+  background-color: rgba(220, 20, 60, 0.518);
+  cursor: pointer;
+}
+
+/* Main styles end */
+
+/* Footer styles start */
+/* Footer styles end */
