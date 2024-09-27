@@ -85,6 +85,8 @@ h1 {
   background-color: crimson;
   height: 3rem;
   width: 5rem;
+  display: none;
+  margin: auto;
   margin-top: 10px;
 }
 
@@ -93,6 +95,9 @@ h1 {
   cursor: pointer;
 }
 
+.result {
+  display: none;
+}
 /* Main styles end */
 
 /* Footer styles start */
