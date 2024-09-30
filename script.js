@@ -1,4 +1,7 @@
 'use strict'
+const clickBoxAudio = new Audio('./audio/box-click.mp3');
+const restartButtonAudio = new Audio('./audio/restart.mp3');
+const gameOverAudio = new Audio('./audio/game-over.mp3')
 const winIndex = [
     [1,2,3],
     [4,5,6],
@@ -34,9 +37,11 @@ function toVisible() {
 }
 function gameEnd() {
   area.style.pointerEvents = 'none';
+  gameOverAudio.play();
 }
 boxes.forEach(item => {
   item.addEventListener('click', () => {
+    clickBoxAudio.play();
     if(item.innerHTML === '') {
       item.innerHTML = turn
       turn === 'x' ? xInd.push(Number(item.getAttribute('pos'))) : oInd.push(Number(item.getAttribute('pos')));
@@ -61,6 +66,7 @@ boxes.forEach(item => {
 })
 
 function restart() {
+  restartButtonAudio.play();
   boxes.forEach(item => {
     item.innerHTML = ''
   })
