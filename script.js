@@ -1,7 +1,6 @@
 'use strict'
-const clickBoxAudio = new Audio('./audio/box-click.mp3');
 const restartButtonAudio = new Audio('./audio/restart.mp3');
-const gameOverAudio = new Audio('./audio/game-over.mp3')
+const gameOverAudio = new Audio('./audio/game-over.mp3');
 const winIndex = [
     [1,2,3],
     [4,5,6],
@@ -16,6 +15,7 @@ const area = document.querySelector('.game-area');
 const turnBoxes = document.querySelectorAll('.turn-box');
 const result = document.querySelector('.result');
 const playAgain = document.querySelector('.play-again');
+const steps = document.querySelector('.steps');
 
 let xInd = [];
 let oInd = [];
@@ -37,11 +37,13 @@ function toVisible() {
 }
 function gameEnd() {
   area.style.pointerEvents = 'none';
+  steps.innerHTML = `steps: ${xInd.length}`;
+  steps.style.display = 'block'
   gameOverAudio.play();
+  toVisible();
 }
 boxes.forEach(item => {
   item.addEventListener('click', () => {
-    clickBoxAudio.play();
     if(item.innerHTML === '') {
       item.innerHTML = turn
       turn === 'x' ? xInd.push(Number(item.getAttribute('pos'))) : oInd.push(Number(item.getAttribute('pos')));
@@ -52,13 +54,10 @@ boxes.forEach(item => {
       }
       if(xWin) {
         result.innerHTML = 'X win';
-        toVisible();
       } else if(oWin) {
         result.innerHTML = 'O win';
-        toVisible();
       } else if(!oWin && !xWin && xInd.length === 5 ) {
         result.innerHTML = 'Draw';
-        toVisible();
       }
       changeTurn();
     }
@@ -79,7 +78,8 @@ function restart() {
   turnBoxes[1].classList.remove('active-box');
   playAgain.style.display = 'none';
   result.style.display = 'none';
-   area.style.pointerEvents = '';
+  area.style.pointerEvents = '';
+  steps.style.display = 'none';
 }
 
 function changeTurn() {

@@ -13,13 +13,14 @@
 
 body {
   background-color: #252A34;
+  min-height: 100vh;
 }
 /* Basic styles end */
 
 /* Header styles start */
 .header {
   text-align: center;
-  margin: 50px;
+  margin: 40px;
 }
 
 h1 {
@@ -54,7 +55,7 @@ h1 {
 
 .content {
     display: flex;
-    margin: 100px 50px 50px 50px;
+    margin: 75px 50px 50px 50px;
 }
 
 .game-area {
@@ -86,8 +87,7 @@ h1 {
   height: 3rem;
   width: 5rem;
   display: none;
-  margin: auto;
-  margin-top: 10px;
+  margin: 2rem auto;
 }
 
 .play-again:hover {
@@ -98,7 +98,41 @@ h1 {
 .result {
   display: none;
 }
+
+.steps {
+  display: none;
+}
+
 /* Main styles end */
 
 /* Footer styles start */
+.footer {
+  position: absolute;
+  bottom: -70px;
+  padding: 2rem;
+  width: 100%;
+  background-color: var(--dark-color);
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer-right,
+.footer-left {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  width: 195px;
+  height: 70px;
+  top: calc(50% - 100px);
+  left: calc(50% - 100px);
+}
+
+.footer-author {
+  color: var(--text-light);
+  text-align: center;
+  font-size: 18px;
+}
 /* Footer styles end */
