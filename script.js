@@ -1,6 +1,6 @@
 'use strict'
-const restartButtonAudio = new Audio('./audio/restart.mp3');
-const gameOverAudio = new Audio('./audio/game-over.mp3');
+const restartButtonAudio = new Audio('./assets/audio/restart.mp3');
+const gameOverAudio = new Audio('./assets/audio/game-over.mp3');
 const winIndex = [
     [1,2,3],
     [4,5,6],
@@ -16,6 +16,10 @@ const turnBoxes = document.querySelectorAll('.turn-box');
 const result = document.querySelector('.result');
 const playAgain = document.querySelector('.play-again');
 const steps = document.querySelector('.steps');
+const settingsBtn = document.querySelector('.settings-btn');
+const settingsModal = document.querySelector('.settings-modal')
+const bgColor = document.querySelector('.background-color');
+const mainColor = document.querySelector('.main-color');
 
 let xInd = [];
 let oInd = [];
@@ -30,18 +34,79 @@ for(let i = 0; i < 9; i++) {
 }
 
 boxes = document.querySelectorAll('.box');
+bgColor.value = '#252A34';
+mainColor.value = '#DC143C';
 
 function toVisible() {
   result.style.display = 'block';
-  playAgain.style.cssText = 'display: block;';
+  playAgain.style.display = 'block';
 }
+
 function gameEnd() {
+  gameOverAudio && gameOverAudio.play();
   area.style.pointerEvents = 'none';
   steps.innerHTML = `steps: ${xInd.length}`;
-  steps.style.display = 'block'
-  gameOverAudio.play();
+  steps.style.display = 'block';
   toVisible();
 }
+
+function restart() {
+  restartButtonAudio && restartButtonAudio.play();
+  boxes.forEach(item => {
+    item.innerHTML = ''
+  })
+  xInd = [];
+  oInd = [];
+  turn = 'x';
+  xWin = false;
+  oWin = false;
+  turnBoxes[0].style.backgroundColor = mainColor.value;
+  turnBoxes[1].style.backgroundColor = bgColor.value;
+  playAgain.style.display = 'none';
+  result.style.display = 'none';
+  area.style.pointerEvents = '';
+  steps.style.display = 'none';
+}
+
+function changeTurn() {
+  if(turn === 'x') {
+    turnBoxes[1].classList.add('active-box');
+    turnBoxes[0].classList.remove('active-box');
+  } else {
+    turnBoxes[0].classList.add('active-box');
+    turnBoxes[1].classList.remove('active-box');
+  }
+  if(turnBoxes[0].classList.contains('active-box')) {
+    turnBoxes[0].style.backgroundColor = mainColor.value;
+    turnBoxes[1].style.backgroundColor = 'inherit';
+  } else {
+    turnBoxes[1].style.backgroundColor = mainColor.value;
+    turnBoxes[0].style.backgroundColor = 'inherit';
+  }
+  turn = 'x' === turn ? 'o' : 'x';
+}
+
+function checkWin(data) {
+    for(let i in winIndex) {
+        let win = true;
+        for(let j in winIndex[i]) {
+            let id = winIndex[i][j];
+            let ind = data.indexOf(id);
+
+            if(ind == -1) {
+                win = false
+            }
+        }
+
+        if(win) return true;
+    }
+    return false;
+}
+
+settingsBtn.addEventListener('click', () => {
+  settingsModal.classList.toggle('active-modal');
+})
+playAgain.addEventListener('click', restart)
 boxes.forEach(item => {
   item.addEventListener('click', () => {
     if(item.innerHTML === '') {
@@ -64,50 +129,29 @@ boxes.forEach(item => {
   })
 })
 
-function restart() {
-  restartButtonAudio.play();
-  boxes.forEach(item => {
-    item.innerHTML = ''
-  })
-  xInd = [];
-  oInd = [];
-  turn = 'x';
-  xWin = false;
-  oWin = false;
-  turnBoxes[0].classList.add('active-box');
-  turnBoxes[1].classList.remove('active-box');
-  playAgain.style.display = 'none';
-  result.style.display = 'none';
-  area.style.pointerEvents = '';
-  steps.style.display = 'none';
-}
-
-function changeTurn() {
-  if(turn === 'x') {
-    turnBoxes[1].classList.add('active-box');
-    turnBoxes[0].classList.remove('active-box');
-  } else {
-    turnBoxes[0].classList.add('active-box');
-    turnBoxes[1].classList.remove('active-box');
-  }
-  turn = 'x' === turn ? 'o' : 'x';
-}
-
-function checkWin(data) {
-    for(let i in winIndex) {
-        let win = true;
-        for(let j in winIndex[i]) {
-            let id = winIndex[i][j];
-            let ind = data.indexOf(id);
-
-            if(ind == -1) {
-                win = false
-            }
-        }
-
-        if(win) return true;
+bgColor.addEventListener('input', () => {
+  document.body.style.backgroundColor = bgColor.value;
+  turnBoxes.forEach(item => {
+    if(!item.classList.contains('active-box')) {
+      item.style.backgroundColor = bgColor.value;
     }
-    return false;
-}
+  })
+})
 
-playAgain.addEventListener('click', restart)
+mainColor.addEventListener('input', () => {
+    playAgain.style.backgroundColor = mainColor.value;
+    turnBoxes.forEach(item => {
+      if(item.classList.contains('active-box')) {
+        item.style.backgroundColor = mainColor.value;
+      }
+    })
+    boxes.forEach(item => {
+      item.addEventListener('mouseover', () => {
+        item.style.backgroundColor = mainColor.value;
+      })
+
+      item.addEventListener('mouseout', () => {
+        item.style.backgroundColor = 'inherit';
+    });
+    })
+})
