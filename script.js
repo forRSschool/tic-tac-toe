@@ -20,6 +20,9 @@ const settingsBtn = document.querySelector('.settings-btn');
 const settingsModal = document.querySelector('.settings-modal')
 const bgColor = document.querySelector('.background-color');
 const mainColor = document.querySelector('.main-color');
+const playerX = document.querySelector('.playerX');
+const playerO = document.querySelector('.playerO');
+
 
 let xInd = [];
 let oInd = [];
@@ -28,6 +31,8 @@ let turn = 'x';
 let xWin = false;
 let oWin = false;
 let endGame = false;
+const results =localStorage.getItem('results')? [...JSON.parse(localStorage.getItem('results'))] : [];
+console.log(results)
 
 for(let i = 0; i < 9; i++) {
     area.innerHTML += "<div class='box' pos=" + (i + 1) + "></div>";
@@ -48,6 +53,15 @@ function gameEnd() {
   steps.innerHTML = `steps: ${xInd.length}`;
   steps.style.display = 'block';
   toVisible();
+  let res = {
+    playerX: playerX?.value || 'playerX',
+    playerO:  playerO?.value || 'playerO',
+    winner: xWin && 'X' || oWin && 'O' || 'Draw',
+    steps: xInd.length
+  }
+  results.push(res)
+  localStorage.setItem('results', JSON.stringify(results))
+  console.log(JSON.parse(localStorage.getItem('results')))
 }
 
 function restart() {
