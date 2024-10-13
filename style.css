@@ -116,14 +116,11 @@ h1 {
 .settings-modal {
   display: none;
   position: fixed;
-  right: 5rem;
+  margin: 1rem;
   background-color: rgb(51, 28, 72);
   padding: 1rem;
+  right: 4rem;
 }
-
-.active-modal {
-  display: block;
-} 
 
 .modal-item {
   padding: 1rem;
@@ -153,12 +150,44 @@ h1 {
 .main-color {
   width: 2rem;
 }
+
+.table {
+  position: fixed;
+  right: 3.5rem;
+  display: none;
+  margin: 1.5rem;
+  padding: .5rem;
+  background-color: rgb(51, 28, 72);;
+}
+
+.table-header {
+  display: flex;
+  margin: 1rem;
+  justify-content: center;
+  gap: 1rem;
+  padding: .5rem 0;
+  border-bottom: 1px solid #ffffff;
+}
+
+.table-item {
+  margin: .5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-item span{
+  margin: 5px;
+}
+
+.active-modal {
+  display: block;
+} 
 /* Main styles end */
 
 /* Footer styles start */
 .footer {
   position: absolute;
-  bottom: -70px;
+  bottom: -130px;
   padding: 2rem;
   width: 100%;
   background-color: var(--dark-color);
@@ -188,7 +217,7 @@ h1 {
 /* Footer styles end */
 
 @media(max-width: 900px) {
-    html {
+  html {
     font-size: 14px;
   }
   .footer {

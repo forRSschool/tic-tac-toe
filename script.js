@@ -17,11 +17,14 @@ const result = document.querySelector('.result');
 const playAgain = document.querySelector('.play-again');
 const steps = document.querySelector('.steps');
 const settingsBtn = document.querySelector('.settings-btn');
-const settingsModal = document.querySelector('.settings-modal')
+const settingsModal = document.querySelector('.settings-modal');
+const recordsBtn = document.querySelector('.records-btn');
+const table = document.querySelector('.table');
 const bgColor = document.querySelector('.background-color');
 const mainColor = document.querySelector('.main-color');
 const playerX = document.querySelector('.playerX');
 const playerO = document.querySelector('.playerO');
+const tableData = document.querySelector('.table-data');
 
 
 let xInd = [];
@@ -31,8 +34,7 @@ let turn = 'x';
 let xWin = false;
 let oWin = false;
 let endGame = false;
-const results =localStorage.getItem('results')? [...JSON.parse(localStorage.getItem('results'))] : [];
-console.log(results)
+let results =localStorage.getItem('results')? [...JSON.parse(localStorage.getItem('results'))] : [];
 
 for(let i = 0; i < 9; i++) {
     area.innerHTML += "<div class='box' pos=" + (i + 1) + "></div>";
@@ -53,16 +55,36 @@ function gameEnd() {
   steps.innerHTML = `steps: ${xInd.length}`;
   steps.style.display = 'block';
   toVisible();
-  let res = {
+  saveToLocalStorage();
+}
+
+function saveToLocalStorage() {
+  const res = {
     playerX: playerX?.value || 'playerX',
     playerO:  playerO?.value || 'playerO',
     winner: xWin && 'X' || oWin && 'O' || 'Draw',
     steps: xInd.length
   }
   results.push(res)
+  if(results.length > 10) {
+    results.reverse();
+    results.pop();
+    results.reverse();
+  }
   localStorage.setItem('results', JSON.stringify(results))
-  console.log(JSON.parse(localStorage.getItem('results')))
+  showResults();
 }
+
+function showResults() {
+  tableData.innerHTML = ''
+  results.forEach(item => {
+    const elem = document.createElement('div');
+    elem.classList.add('table-item');
+    elem.innerHTML += `<span>${item.playerX}</span> <span>${item.playerO}</span>  <span>${item.winner}</span> <span>${item.steps}</span>`
+    tableData.append(elem)
+  })
+}
+showResults();
 
 function restart() {
   restartButtonAudio && restartButtonAudio.play();
@@ -120,6 +142,11 @@ function checkWin(data) {
 settingsBtn.addEventListener('click', () => {
   settingsModal.classList.toggle('active-modal');
 })
+
+recordsBtn.addEventListener('click', () => {
+  table.classList.toggle('active-modal');
+})
+
 playAgain.addEventListener('click', restart)
 boxes.forEach(item => {
   item.addEventListener('click', () => {
@@ -169,3 +196,4 @@ mainColor.addEventListener('input', () => {
     });
     })
 })
+
