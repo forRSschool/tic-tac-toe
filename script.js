@@ -96,8 +96,10 @@ function restart() {
   turn = 'x';
   xWin = false;
   oWin = false;
+  turnBoxes[0].classList.add('active-box');
+  turnBoxes[1].classList.remove('active-box');
   turnBoxes[0].style.backgroundColor = mainColor.value;
-  turnBoxes[1].style.backgroundColor = bgColor.value;
+  turnBoxes[1].style.backgroundColor = 'inherit';
   playAgain.style.display = 'none';
   result.style.display = 'none';
   area.style.pointerEvents = '';
@@ -172,11 +174,11 @@ boxes.forEach(item => {
 
 bgColor.addEventListener('input', () => {
   document.body.style.backgroundColor = bgColor.value;
-  turnBoxes.forEach(item => {
-    if(!item.classList.contains('active-box')) {
-      item.style.backgroundColor = bgColor.value;
-    }
-  })
+  // turnBoxes.forEach(item => {
+  //   if(!item.classList.contains('active-box')) {
+  //     item.style.backgroundColor = bgColor.value;
+  //   }
+  // })
 })
 
 mainColor.addEventListener('input', () => {
