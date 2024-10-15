@@ -92,6 +92,8 @@ function restart() {
   turn = 'x';
   xWin = false;
   oWin = false;
+  turnBoxes[0].classList.add('active-box');
+  turnBoxes[1].classList.remove('active-box');
   playAgain.style.display = 'none';
   result.style.display = 'none';
   area.style.pointerEvents = '';
@@ -99,14 +101,14 @@ function restart() {
 }
 
 function changeTurn() {
+  turn = 'x' === turn ? 'o' : 'x';
   if(turn === 'x') {
-    turnBoxes[1].classList.add('active-box');
-    turnBoxes[0].classList.remove('active-box');
-  } else {
     turnBoxes[0].classList.add('active-box');
     turnBoxes[1].classList.remove('active-box');
+  } else {
+    turnBoxes[1].classList.add('active-box');
+    turnBoxes[0].classList.remove('active-box');
   }
-  turn = 'x' === turn ? 'o' : 'x';
 }
 
 function checkWin(data) {
