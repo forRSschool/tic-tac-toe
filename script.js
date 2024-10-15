@@ -20,8 +20,6 @@ const settingsBtn = document.querySelector('.settings-btn');
 const settingsModal = document.querySelector('.settings-modal');
 const recordsBtn = document.querySelector('.records-btn');
 const table = document.querySelector('.table');
-const bgColor = document.querySelector('.background-color');
-const mainColor = document.querySelector('.main-color');
 const playerX = document.querySelector('.playerX');
 const playerO = document.querySelector('.playerO');
 const tableData = document.querySelector('.table-data');
@@ -41,8 +39,6 @@ for(let i = 0; i < 9; i++) {
 }
 
 boxes = document.querySelectorAll('.box');
-bgColor.value = '#252A34';
-mainColor.value = '#DC143C';
 
 function toVisible() {
   result.style.display = 'block';
@@ -96,10 +92,6 @@ function restart() {
   turn = 'x';
   xWin = false;
   oWin = false;
-  turnBoxes[0].classList.add('active-box');
-  turnBoxes[1].classList.remove('active-box');
-  turnBoxes[0].style.backgroundColor = mainColor.value;
-  turnBoxes[1].style.backgroundColor = 'inherit';
   playAgain.style.display = 'none';
   result.style.display = 'none';
   area.style.pointerEvents = '';
@@ -113,13 +105,6 @@ function changeTurn() {
   } else {
     turnBoxes[0].classList.add('active-box');
     turnBoxes[1].classList.remove('active-box');
-  }
-  if(turnBoxes[0].classList.contains('active-box')) {
-    turnBoxes[0].style.backgroundColor = mainColor.value;
-    turnBoxes[1].style.backgroundColor = 'inherit';
-  } else {
-    turnBoxes[1].style.backgroundColor = mainColor.value;
-    turnBoxes[0].style.backgroundColor = 'inherit';
   }
   turn = 'x' === turn ? 'o' : 'x';
 }
@@ -172,30 +157,4 @@ boxes.forEach(item => {
   })
 })
 
-bgColor.addEventListener('input', () => {
-  document.body.style.backgroundColor = bgColor.value;
-  // turnBoxes.forEach(item => {
-  //   if(!item.classList.contains('active-box')) {
-  //     item.style.backgroundColor = bgColor.value;
-  //   }
-  // })
-})
-
-mainColor.addEventListener('input', () => {
-    playAgain.style.backgroundColor = mainColor.value;
-    turnBoxes.forEach(item => {
-      if(item.classList.contains('active-box')) {
-        item.style.backgroundColor = mainColor.value;
-      }
-    })
-    boxes.forEach(item => {
-      item.addEventListener('mouseover', () => {
-        item.style.backgroundColor = mainColor.value;
-      })
-
-      item.addEventListener('mouseout', () => {
-        item.style.backgroundColor = 'inherit';
-    });
-    })
-})
 
